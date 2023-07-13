@@ -1,7 +1,9 @@
-export abstract class Appsmith {
+export class Appsmith {
   protected name: string;
+  // type: string;
 
-  constructor(name: string) {
+  constructor(name?: string) {
+    // TODO if no name, create new name based on type
     this.name = name;
   }
 
@@ -12,6 +14,8 @@ export abstract class Appsmith {
   getName(): string {
     return this.name;
   }
+}
 
+export abstract class Jsonable {
   abstract toJson(): Object;
 }
