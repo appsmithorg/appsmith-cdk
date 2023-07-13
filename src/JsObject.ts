@@ -1,7 +1,3 @@
-
-
-
-
 export class JsObject {
   // properties
   name: string;

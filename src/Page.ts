@@ -1,7 +1,7 @@
-import {Appsmith, Jsonable} from "~/Appsmith";
+import {Appsmith} from "~/Appsmith";
 import {JsObject} from "~/JsObject";
 
-class Page extends Appsmith implements Jsonable {
+class Page extends Appsmith {
     private widgets: Array<Object>;
     private customJSFunctions: Array<JsObject>;
     
@@ -17,12 +17,6 @@ class Page extends Appsmith implements Jsonable {
 
     addCustomJSFunc(customJSFunc: JsObject): void{
         this.customJSFunctions.push(customJSFunc);
-    }
-
-    toJson(): Object {
-        return {
-            // TODO
-        };
     }
 
 }

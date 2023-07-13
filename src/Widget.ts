@@ -1,16 +1,12 @@
-import {Appsmith, Jsonable} from "~/Appsmith";
+import {Appsmith} from "~/Appsmith";
 
-class Widget extends Appsmith implements Jsonable {
+class Widget extends Appsmith {
     type: string;
     visible: boolean;
     // TODO add basic properties
 
     constructor(name?: string) {
         super(name);
-    }
-
-    toJson(): Object {
-        return this;
     }
 
 }
