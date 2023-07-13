@@ -1,13 +1,11 @@
-import { Appsmith } from "~/Appsmith";
 import { JsObject } from "~/JsObject";
-import { TAppsmithPage } from "./types/base.types";
 
 class Page {
   // private widgets: Array<Object>;
   // private customJSFunctions: Array<JsObject>;
 
-  private name = "test";
-  private slug = "slug";
+  private name: string;
+  private slug: string;
   private layouts = [
     {
       viewMode: false,
@@ -36,6 +34,10 @@ class Page {
   setSlug(slug: string) {
     this.slug = slug;
     return this;
+  }
+
+  getName(): string {
+    return this.name;
   }
 
   // addWidget(widget: Object): void{

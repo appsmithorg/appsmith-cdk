@@ -19,10 +19,10 @@ import { TAppsmithApplication } from "./types/base.types";
 
 // console.log(JSON.stringify(widget))
 
-const page = new Page("My Page").setSlug("my-page");
-
 const app = new App("My App").setIsPublic(true);
-
-app.addPage(page);
+const page = new Page("My Page").setSlug("my-page");
+const anotherPage = new Page("Another Page").setSlug("another-page");
+app.addPage(page, true);
+app.addPage(anotherPage, false);
 
 console.log(JSON.stringify(app, null, 2));

@@ -8,26 +8,26 @@ export class App {
   private clientSchemaVersion = 1;
   private serverSchemaVersion = 6;
   private exportedApplication: {
-    name: "";
-    isPublic: false;
-    pages: [];
-    publishedPages: [];
-    viewMode: false;
-    appIsExample: false;
-    unreadCommentThreads: 0;
-    color: "#D9E7FF"; // hard-coding a color here
-    icon: "card";
-    slug: "";
+    name: string;
+    isPublic: boolean;
+    pages: Array<{ id: string; isDefault: boolean }>;
+    publishedPages: Array<{ id: string; isDefault: boolean }>;
+    viewMode: boolean;
+    appIsExample: boolean;
+    unreadCommentThreads: number;
+    color: string; // hard-coding a color here
+    icon: string;
+    slug: string;
     unpublishedAppLayout: { type: "DESKTOP" };
     publishedAppLayout: { type: "DESKTOP" };
     unpublishedCustomJSLibs: [];
     publishedCustomJSLibs: [];
-    evaluationVersion: 2;
-    applicationVersion: 2;
+    evaluationVersion: number;
+    applicationVersion: number;
     embedSetting: null;
     collapseInvisibleWidgets: true;
-    isManualUpdate: false;
-    deleted: false;
+    isManualUpdate: boolean;
+    deleted: boolean;
   };
   private datasourceList = null;
   private customJSLibList = null;
@@ -37,46 +37,44 @@ export class App {
   private updatedResources = null;
   private editModeTheme = null;
   private publishedTheme = null;
+  private unpublishedApplicationDetail = {
+    appPositioning: {
+      type: "AUTO",
+    },
+  };
+  private publishedApplicationDetail = {
+    appPositioning: {
+      type: "AUTO",
+    },
+  };
 
   constructor(name: string) {
-    this.app = {
-      clientSchemaVersion: 1,
-      serverSchemaVersion: 6,
-      exportedApplication: {
-        name: name,
-        isPublic: false,
-        pages: [],
-        publishedPages: [],
-        viewMode: false,
-        appIsExample: false,
-        unreadCommentThreads: 0,
-        color: "#D9E7FF", // hard-coding a color here
-        icon: "card",
-        slug: name,
-        unpublishedAppLayout: { type: "DESKTOP" },
-        publishedAppLayout: { type: "DESKTOP" },
-        unpublishedCustomJSLibs: [],
-        publishedCustomJSLibs: [],
-        evaluationVersion: 2,
-        applicationVersion: 2,
-        embedSetting: null,
-        collapseInvisibleWidgets: true,
-        isManualUpdate: false,
-        deleted: false,
-      },
-      datasourceList: null,
-      customJSLibList: null,
-      pageList: null,
-      actionList: null,
-      actionCollectionList: null,
-      updatedResources: null,
-      editModeTheme: null,
-      publishedTheme: null,
+    this.exportedApplication = {
+      name: name,
+      isPublic: false,
+      pages: [],
+      publishedPages: [],
+      viewMode: false,
+      appIsExample: false,
+      unreadCommentThreads: 0,
+      color: "#D9E7FF", // hard-coding a color here
+      icon: "card",
+      slug: "",
+      unpublishedAppLayout: { type: "DESKTOP" },
+      publishedAppLayout: { type: "DESKTOP" },
+      unpublishedCustomJSLibs: [],
+      publishedCustomJSLibs: [],
+      evaluationVersion: 2,
+      applicationVersion: 2,
+      embedSetting: null,
+      collapseInvisibleWidgets: true,
+      isManualUpdate: false,
+      deleted: false,
     };
   }
 
   setIsPublic(isPublic: boolean) {
-    this.app.exportedApplication.isPublic = isPublic;
+    this.exportedApplication.isPublic = isPublic;
     return this;
   }
 
@@ -84,8 +82,11 @@ export class App {
     return this.pages;
   }
 
-  addPage(page: Page): void {
-    this.app.exportedApplication.pages.push(page);
+  addPage(page: Page, isDefault: boolean) {
+    const id = page.getName();
+    this.exportedApplication.pages.push({ id, isDefault });
+    this.exportedApplication.publishedPages.push({ id, isDefault });
+    return this;
   }
 
   toJson(): Object {
