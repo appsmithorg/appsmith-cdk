@@ -1,9 +1,7 @@
 import Page from "~/Page";
-import { TAppsmithApplication } from "~/types/base.types";
 
 export class App {
   private pages: Array<Page>;
-  private app: TAppsmithApplication;
 
   private clientSchemaVersion = 1;
   private serverSchemaVersion = 6;
