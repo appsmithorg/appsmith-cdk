@@ -4,7 +4,9 @@ import { Button } from "~/widgets/Button";
 import { App } from "./App";
 import Page from "./Page";
 import { TAppsmithApplication } from "./types/base.types";
-
+import { RestAPI } from "./datasources/RestAPI";
+import { Postgres } from "./datasources/Postgres";
+import { Mysql } from "./datasources/MySQL";
 // const js = new JsObject("Js");
 
 // js.setSettingFor("run").onLoad(true).confirm(true)
@@ -26,3 +28,13 @@ app.addPage(page, true);
 app.addPage(anotherPage, false);
 
 console.log(JSON.stringify(app, null, 2));
+
+const restAPIDatasource = new RestAPI("myapi");
+console.log({restAPIDatasource});
+
+
+const postgresDatasource = new Postgres("mypgdb");
+console.log({postgresDatasource});
+
+const mysqlDatasource = new Mysql("mysqldb");
+console.log({mysqlDatasource});
