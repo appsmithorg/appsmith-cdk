@@ -31,7 +31,12 @@ export class App {
   };
   private datasourceList = null;
   private customJSLibList = null;
-  private pageList = null;
+  private pageList: {
+    unpublishedPage: Page;
+    publishedPage: Page;
+    deleted: boolean;
+    gitSyncId: string;
+  }[];
   private actionList = null;
   private actionCollectionList = null;
   private updatedResources = null;
@@ -71,6 +76,7 @@ export class App {
       isManualUpdate: false,
       deleted: false,
     };
+    this.pageList = [];
   }
 
   setIsPublic(isPublic: boolean) {
@@ -86,6 +92,13 @@ export class App {
     const id = page.getName();
     this.exportedApplication.pages.push({ id, isDefault });
     this.exportedApplication.publishedPages.push({ id, isDefault });
+
+    this.pageList.push({
+      unpublishedPage: page,
+      publishedPage: page,
+      deleted: false,
+      gitSyncId: null,
+    });
     return this;
   }
 
