@@ -1,16 +1,22 @@
-class App {
-    private pages: Array<Object>;
+import { Appsmith } from "./appsmith";
 
-    constructor() {
-        this.pages = new Array<Object>;
-    }
+export class App extends Appsmith {
+  private pages: Array<Object>;
 
-    getPages(): Array<Object>{
-        return this.pages;
-    }
+  constructor(name: string) {
+    super(name);
+    this.pages = new Array<Object>();
+  }
 
-    addPage(page: Object): void{
-        this.pages.push(page);
-    }
+  getPages(): Array<Object> {
+    return this.pages;
+  }
 
+  addPage(page: Object): void {
+    this.pages.push(page);
+  }
+
+  toJson(): Object {
+    return {};
+  }
 }

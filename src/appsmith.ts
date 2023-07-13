@@ -1,17 +1,17 @@
-abstract class Appsmith {
-    protected name: string;
-    
-    constructor(name: string) {
-        this.name = name;
-    }
+export abstract class Appsmith {
+  protected name: string;
 
-    setName(name: string): void{
-        this.name = name;
-    }
+  constructor(name: string) {
+    this.name = name;
+  }
 
-    getName(): string{
-        return this.name;
-    }
+  setName(name: string): void {
+    this.name = name;
+  }
 
-    abstract toJson(): Object;
+  getName(): string {
+    return this.name;
+  }
+
+  abstract toJson(): Object;
 }
