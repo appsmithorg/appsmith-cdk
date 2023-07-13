@@ -4,7 +4,7 @@ import {
 } from "./datasources.types";
 import { TAppsmithMainContainerWidget } from "./widgets.types";
 
-export type TAppsmithPage = {
+export type TAppsmithPage {
   name: string;
   slug: string;
   layouts: {
