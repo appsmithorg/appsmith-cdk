@@ -51,3 +51,4 @@ page = new Page();
 widget = new Widget();
 page.addWidget(widget);
 
+app.addPage(page)
