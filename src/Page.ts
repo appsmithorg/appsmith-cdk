@@ -41,15 +41,19 @@ class Page {
       containerStyle: "none",
       snapRows: 124.0,
       parentRowSpace: 1.0,
+      positioning: "vertical",
+      responsiveBehavior: "fill",
       type: "CANVAS_WIDGET",
       canExtend: true,
       version: 80.0,
       minHeight: 1292.0,
       dynamicTriggerPathList: [],
+      flexLayers: [],
       parentColumnSpace: 1.0,
       dynamicBindingPathList: [],
       leftColumn: 0.0,
-      children: [],
+      useAutoLayout: true,
+      children: []
     };
   }
 
