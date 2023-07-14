@@ -47,7 +47,7 @@ class Page {
       version: 80.0,
       minHeight: 1292.0,
       dynamicTriggerPathList: [],
-      flexLayers: [{children: []}],
+      flexLayers: [],
       parentColumnSpace: 1.0,
       dynamicBindingPathList: [],
       leftColumn: 0.0,
@@ -82,8 +82,8 @@ class Page {
   }
 
   private _updatePageFlexLayers(widgetId: string, alignment: "start" | "center" | "end") {
-    const { children } = this.layouts[0].dsl.flexLayers[0];
-    children.push({ id: widgetId, "align": alignment });
+    const { flexLayers } = this.layouts[0].dsl;
+    flexLayers.push({children: [{ id: widgetId, "align": alignment }]});
   }
 }
 

@@ -35,9 +35,17 @@ const postgresDatasource = new Postgres("mypgdb");
 const mysqlDatasource = new Mysql("mysqldb");
 // console.log({ mysqlDatasource });
 
-const button1 = new Button("Yo Button");
-button1.setText("Yo yo text");
+const button1 = new Button("LeftButton");
+button1.setText("Left").setAlignment("start");
 page.addWidget(button1);
+
+const button2 = new Button("RightButton");
+button2.setText("Right").setAlignment("end");
+page.addWidget(button2);
+
+const button3 = new Button("CenterButton");
+button3.setText("Center").setAlignment("center");
+page.addWidget(button3);
 
 app.addDatasource(restAPIDatasource);
 app.addDatasource(postgresDatasource);
