@@ -1,10 +1,9 @@
 import { Appsmith } from "./Appsmith";
 
-
 export enum DatasourceType {
-  RESTAPI = "RESTAPI",
-  MYSQL = "MYSQL",
-  POSTGRES = "POSTGRES",
+    RESTAPI = "RESTAPI",
+    MYSQL = "MYSQL",
+    POSTGRES = "POSTGRES",
 }
 
 export class Datasource extends Appsmith {
@@ -17,13 +16,13 @@ export class Datasource extends Appsmith {
     gitSyncId: string = "5f605507aca54a23d65b3f91_61c43328e89bc475f3caa5fa";
 
     constructor(name: string, type: DatasourceType) {
-      super(name);
-      this.name = name;
-      this.type = type;
+        super(name);
+        this.name = name;
+        this.type = type;
     }
 
     setPluginId(pluginId: string) {
-      this.pluginId = pluginId;
-      return this;
+        this.pluginId = pluginId;
+        return this;
     }
-  }
+}

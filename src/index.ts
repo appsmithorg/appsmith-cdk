@@ -30,11 +30,10 @@ app.addPage(anotherPage, false);
 console.log(JSON.stringify(app, null, 2));
 
 const restAPIDatasource = new RestAPI("myapi");
-console.log({restAPIDatasource});
-
+console.log({ restAPIDatasource });
 
 const postgresDatasource = new Postgres("mypgdb");
-console.log({postgresDatasource});
+console.log({ postgresDatasource });
 
 const mysqlDatasource = new Mysql("mysqldb");
-console.log({mysqlDatasource});
+console.log({ mysqlDatasource });
