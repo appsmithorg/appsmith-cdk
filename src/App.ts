@@ -1,6 +1,8 @@
 import Page from "~/Page";
 import { Datasource } from "./Datasource";
 import fs from "fs";
+import { TAppsmithApplication } from "./types/base.types";
+import { TAppsmithActionPlugin } from "./types/datasources.types";
 
 export class App {
   private pages: Array<{ page: Page; isDefault: boolean }> = [];
@@ -194,13 +196,13 @@ export class App {
     );
   }
 
-  #getActionList() {
+  #getActionList(): TAppsmithActionPlugin[] {
     const actionList = [];
     this.pages.forEach(({ page }) => actionList.push(...page.getActionList()));
     return actionList;
   }
 
-  #getActionCollectionList() {
+  #getActionCollectionList(): TAppsmithApplication["actionCollectionList"] {
     const actionCollectionList = [];
     this.pages.forEach(({ page }) =>
       actionCollectionList.push(...page.getActionCollectionList())
@@ -208,7 +210,39 @@ export class App {
     return actionCollectionList;
   }
 
+  #getUpdatedResources() {
+    const pageList = this.pages.map(({ page }) => {
+      return page.getName();
+    });
+
+    const actionList = this.#getActionList().map((action) => {
+      const { id, publishedAction, pluginType } = action;
+
+      const name =
+        pluginType === "JS"
+          ? publishedAction.fullyQualifiedName
+          : publishedAction.name;
+
+      return `${name}##ENTITY_SEPARATOR##${publishedAction.pageId}`;
+    });
+
+    const actionCollectionList = this.#getActionCollectionList().map(
+      ({ publishedCollection: { name, pageId } }) => {
+        return `${name}##ENTITY_SEPARATOR##${pageId}`;
+      }
+    );
+
+    return {
+      pageList,
+      actionList,
+      actionCollectionList,
+      customJSLibList: [],
+    };
+  }
+
   toJson(): Object {
+    const actionList = this.#getActionList();
+
     return {
       clientSchemaVersion: this.clientSchemaVersion,
       serverSchemaVersion: this.serverSchemaVersion,
@@ -216,9 +250,9 @@ export class App {
       datasourceList: this.datasourceList,
       customJSLibList: this.customJSLibList,
       pageList: this.#getPageList(),
-      actionList: this.#getActionList(),
+      actionList,
       actionCollectionList: this.#getActionCollectionList(),
-      updatedResources: this.updatedResources,
+      updatedResources: this.#getUpdatedResources(),
       editModeTheme: this.editModeTheme,
       publishedTheme: this.publishedTheme,
     };
