@@ -2,6 +2,7 @@ import { JsObject } from "~/JsObject";
 import Widget from "~/Widget";
 import { Button } from "~/widgets/Button";
 import { Input } from "./widgets/Input";
+import { Text } from "./widgets/Text";
 import { App } from "./App";
 import Page from "./Page";
 import { RestAPI } from "~/datasources/RestAPI";
@@ -55,6 +56,11 @@ input.setLabel("Name");
 input.setIsRequired(true);
 input.setLabelPosition("Left");
 page.addWidget(input);
+
+const text = new Text("Text");
+text.setText("Hello World");
+text.setFontSize("1.25rem");
+page.addWidget(text);
 
 app.addDatasource(restAPIDatasource);
 app.addDatasource(postgresDatasource);
