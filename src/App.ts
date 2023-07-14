@@ -118,6 +118,10 @@ export class App {
     return this.pages;
   }
 
+  getName(): string {
+    return this.exportedApplication.name;
+  }
+
   addPage(page: Page, isDefault: boolean) {
     const id = page.getName();
     this.exportedApplication.pages.push({ id, isDefault });
