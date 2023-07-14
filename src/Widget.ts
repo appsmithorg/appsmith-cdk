@@ -7,13 +7,14 @@ export enum WidgetType {
   CANVAS = "CANVAS_WIDGET",
   INPUT = "INPUT_WIDGET_V2",
   BUTTON = "BUTTON_WIDGET",
+  TABLE = "TABLE_WIDGET_V2",
 }
 
 class Widget extends Appsmith {
   /** Operational properties  */
   type: WidgetType;
-  dynamicTriggerPathList: Array<{ key: string }>;
-  dynamicBindingPathList: Array<{ key: string }>;
+  dynamicTriggerPathList: Array<{ key: string }> = [];
+  dynamicBindingPathList: Array<{ key: string }> = [];
   key = generateKey({ size: 5 });
   widgetId = generateKey({ size: 10 });
   isDeprecated = false;
@@ -24,7 +25,7 @@ class Widget extends Appsmith {
   /** Functional properties  */
   widgetName: string;
   isVisible: true;
-  version: number;
+  version: number = 1;
   /** Position properties  */
   // Responsive position
   mobileBottomRow: number;
@@ -34,7 +35,7 @@ class Widget extends Appsmith {
   maxDynamicHeight = 9000.0;
   minDynamicHeight = 4.0;
   dynamicHeight = "AUTO_HEIGHT";
-  responsiveBehavior: "fill" | "hug";
+  responsiveBehavior: "fill" | "hug" = "fill";
   // Fixed position
   topRow = 0.0;
   bottomRow = 0.0;

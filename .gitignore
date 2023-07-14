@@ -1,3 +1,8 @@
 node_modules
 .idea
+<<<<<<< Updated upstream
 exports
+=======
+test.json
+data/
+>>>>>>> Stashed changes

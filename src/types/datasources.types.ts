@@ -275,4 +275,6 @@ export type TAppsmithJSAction = {
   confirmBeforeExecute: boolean;
   policies: [];
   userPermissions: [];
+  clientSideExecution: boolean;
+  createdAt: string;
 };

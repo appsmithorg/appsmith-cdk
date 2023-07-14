@@ -1,5 +1,10 @@
 import { JsObject } from "~/JsObject";
 import Widget from "~/Widget";
+import { TAppsmithActionPlugin } from "./types/datasources.types";
+import {
+  TAppsmithActionCollection,
+  TAppsmithApplication,
+} from "./types/base.types";
 
 class Page {
   // private widgets: Array<Object>;
@@ -24,6 +29,7 @@ class Page {
   private userPermissions = null;
   private policies = null;
   private isHidden = false;
+  private JSObjects: JsObject[] = [];
 
   constructor(name: string) {
     this.name = name;
@@ -52,7 +58,7 @@ class Page {
       dynamicBindingPathList: [],
       leftColumn: 0.0,
       useAutoLayout: true,
-      children: []
+      children: [],
     };
   }
 
@@ -73,17 +79,83 @@ class Page {
 
   private _updateNewWidgetPosition(widget) {
     const { children } = this.layouts[0].dsl;
-    if(children.length === 0) {
+    if (children.length === 0) {
       widget.setTopBottomRow(0, widget.height);
     } else {
-      const lastWidget = children.slice(-1);
+      const lastWidget = children.slice(-1)[0];
       widget.setTopBottomRow(lastWidget.mobileBottomRow, lastWidget.mobileBottomRow + widget.height);
     }
   }
 
-  private _updatePageFlexLayers(widgetId: string, alignment: "start" | "center" | "end") {
+  private _updatePageFlexLayers(
+    widgetId: string,
+    alignment: "start" | "center" | "end"
+  ) {
     const { flexLayers } = this.layouts[0].dsl;
-    flexLayers.push({children: [{ id: widgetId, "align": alignment }]});
+    flexLayers.push({ children: [{ id: widgetId, align: alignment }] });
+  }
+
+  addJsObject(jsObject: JsObject): void {
+    this.JSObjects.push(jsObject);
+  }
+
+  getPageJson() {
+    return {
+      name: this.name,
+      slug: this.slug,
+      layouts: this.layouts,
+      userPermissions: this.userPermissions,
+      policies: this.policies,
+    };
+  }
+
+  getActionList() {
+    const actionsList: TAppsmithActionPlugin[] = [];
+    this.JSObjects.forEach(({ actionList }) => {
+      actionList.forEach(
+        ({ publishedAction, unpublishedAction, ...action }) => {
+          actionsList.push({
+            ...action,
+            publishedAction: {
+              ...publishedAction,
+              pageId: this.name,
+              collectionId: `${this.name}_${publishedAction.collectionId}`,
+            },
+            unpublishedAction: {
+              ...unpublishedAction,
+              pageId: this.name,
+              collectionId: `${this.name}_${unpublishedAction.collectionId}`,
+            },
+          } as TAppsmithActionPlugin);
+        }
+      );
+    });
+
+    return actionsList;
+  }
+
+  getActionCollectionList() {
+    const actionCollections: TAppsmithApplication["actionCollectionList"] = [];
+
+    this.JSObjects.forEach(({ actionCollectionList }) => {
+      actionCollectionList.forEach(
+        ({ unpublishedCollection, publishedCollection, ...collection }) => {
+          actionCollections.push({
+            ...collection,
+            publishedCollection: {
+              ...publishedCollection,
+              pageId: this.name,
+            },
+            unpublishedCollection: {
+              ...unpublishedCollection,
+              pageId: this.name,
+            },
+          });
+        }
+      );
+    });
+
+    return actionCollections;
   }
 }
 
