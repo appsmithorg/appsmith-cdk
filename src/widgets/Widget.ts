@@ -63,6 +63,7 @@ class Widget extends Appsmith {
   setTopBottomRow(top: number, bottom: number) {
     this.mobileTopRow = top;
     this.mobileBottomRow = bottom;
+    this.bottomRow = bottom;
   }
 
   setResponsiveBehaviour(behaviour: "fill" | "hug") {

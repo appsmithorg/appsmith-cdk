@@ -1,5 +1,5 @@
 import { JsObject } from "~/JsObject";
-import Widget from "~/Widget";
+import Widget from "~/widgets/Widget";
 import { TAppsmithActionPlugin } from "./types/datasources.types";
 import {
   TAppsmithActionCollection,

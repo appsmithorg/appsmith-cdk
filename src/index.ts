@@ -1,5 +1,5 @@
 import { JsObject } from "~/JsObject";
-import Widget from "~/Widget";
+import Widget from "~/widgets/Widget";
 import { Button } from "~/widgets/Button";
 import { Input } from "./widgets/Input";
 import { Text } from "./widgets/Text";

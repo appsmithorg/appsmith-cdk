@@ -1,4 +1,4 @@
-import Widget, { WidgetType } from "~/Widget";
+import Widget, { WidgetType } from "~/widgets/Widget";
 import { EAppsmithFontStyle, EAppsmithOverflow, EAppsmithTextAlign } from "~/types/appsmith.enum";
 
 export class Text extends Widget {
@@ -21,9 +21,6 @@ export class Text extends Widget {
     },
     {
       "key": "borderRadius"
-    },
-    {
-      "key": "text"
     }
   ]
 

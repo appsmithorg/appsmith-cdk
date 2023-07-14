@@ -1,4 +1,4 @@
-import Widget, { WidgetType } from "~/Widget";
+import Widget, { WidgetType } from "~/widgets/Widget";
 import { EAppsmithFontStyle, EAppsmithHeight, EAppsmithInputType, EAppsmithLabelAlign, EAppsmithLabelPosition } from "~/types/appsmith.enum";
 
 export class Input extends Widget {
@@ -125,6 +125,11 @@ export class Input extends Widget {
 
   setTooltip(tooltip: string) {
     this.tooltip = tooltip;
+    return this;
+  }
+
+  setInputType(inputType: EAppsmithInputType) {
+    this.inputType = inputType;
     return this;
   }
 }

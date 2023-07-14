@@ -1,4 +1,4 @@
-import Widget, { WidgetType } from "~/Widget";
+import Widget, { WidgetType } from "~/widgets/Widget";
 
 export class Button extends Widget {
   resetFormOnClick: boolean;
@@ -21,6 +21,8 @@ export class Button extends Widget {
 
   buttonVariant: "PRIMARY" | "SECONDARY" | "TERTIARY" = "PRIMARY";
   placement: "START" | "BETWEEN" | "CENTER" = "CENTER";
+
+  onClick: string
 
   constructor(name: string) {
     super(name, WidgetType.BUTTON);
@@ -59,5 +61,12 @@ export class Button extends Widget {
   setDisabledWhenInvalid(disabled: boolean) {
     this.disabledWhenInvalid = disabled;
     return this;
+  }
+
+  setOnClick(binding: string) {
+    this.dynamicTriggerPathList.push({
+      key: "onClick"
+    });
+    this.onClick = binding;
   }
 }

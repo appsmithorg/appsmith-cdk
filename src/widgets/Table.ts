@@ -1,4 +1,4 @@
-import Widget, {WidgetType} from "../Widget";
+import Widget, {WidgetType} from "./Widget";
 
 class Table extends Widget {
     boxShadow = "{{appsmith.theme.boxShadow.appBoxShadow}}"
@@ -50,7 +50,7 @@ class Table extends Widget {
     borderRadius = "{{appsmith.theme.borderRadius.appBorderRadius}}"
     columnUpdatedAt = 1.689316917836E12
     defaultSelectedRowIndices = [0.0]
-    defaultPageSize = 0.0
+    defaultPageSize = 10
     columnOrder = []
     dynamicPropertyPathList = []
     columnWidthMap = {}
