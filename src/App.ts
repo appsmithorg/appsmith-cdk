@@ -1,4 +1,5 @@
 import Page from "~/Page";
+import { Datasource } from "./Datasource";
 
 export class App {
   private pages: Array<Page>;
@@ -75,6 +76,7 @@ export class App {
       deleted: false,
     };
     this.pageList = [];
+    this.datasourceList = [];
   }
 
   setIsPublic(isPublic: boolean) {
@@ -97,6 +99,11 @@ export class App {
       deleted: false,
       gitSyncId: null,
     });
+    return this;
+  }
+
+  addDatasource(datasource: Datasource) : App {
+    this.datasourceList.push(datasource);
     return this;
   }
 
