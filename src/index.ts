@@ -1,6 +1,7 @@
 import { JsObject } from "~/JsObject";
 import Widget from "~/Widget";
 import { Button } from "~/widgets/Button";
+import { Input } from "./widgets/Input";
 import { App } from "./App";
 import Page from "./Page";
 import { RestAPI } from "~/datasources/RestAPI";
@@ -47,6 +48,14 @@ page.addWidget(button2);
 const button3 = new Button("CenterButton");
 button3.setText("Center").setAlignment("center");
 page.addWidget(button3);
+
+const input = new Input("Input");
+input.setPlaceholderText("Enter your name");
+input.setLabel("Name");
+input.setIsRequired(true);
+input.setLabelPosition("Left");
+page.addWidget(input);
+
 
 app.addDatasource(restAPIDatasource);
 app.addDatasource(postgresDatasource);
