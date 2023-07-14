@@ -1,4 +1,5 @@
 import Page from "~/Page";
+import { Datasource } from "./Datasource";
 
 export class App {
   private pages: Array<Page>;
@@ -75,10 +76,41 @@ export class App {
       deleted: false,
     };
     this.pageList = [];
+    this.datasourceList = [];
+    this.actionList = [];
+    this.actionCollectionList = [];
+    this.editModeTheme = {
+      name: "Default",
+      displayName: "Modern",
+      isSystemTheme: true,
+      deleted: false,
+    };
+    this.publishedTheme = {
+      name: "Default",
+      displayName: "Modern",
+      isSystemTheme: true,
+      deleted: false,
+    };
   }
 
   setIsPublic(isPublic: boolean) {
     this.exportedApplication.isPublic = isPublic;
+    return this;
+  }
+
+  setTheme(theme: string) {
+    this.editModeTheme = {
+      name: theme,
+      displayName: theme,
+      isSystemTheme: true,
+      deleted: false,
+    };
+    this.publishedTheme = {
+      name: theme,
+      displayName: theme,
+      isSystemTheme: true,
+      deleted: false,
+    };
     return this;
   }
 
@@ -97,6 +129,11 @@ export class App {
       deleted: false,
       gitSyncId: null,
     });
+    return this;
+  }
+
+  addDatasource(datasource: Datasource): App {
+    this.datasourceList.push(datasource);
     return this;
   }
 
