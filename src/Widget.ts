@@ -20,6 +20,7 @@ class Widget extends Appsmith {
   renderMode = "CANVAS";
   animateLoading = true;
   isLoading = false;
+  parentId = "0";
   /** Functional properties  */
   widgetName: string;
   isVisible: true;
@@ -27,7 +28,7 @@ class Widget extends Appsmith {
   /** Position properties  */
   // Responsive position
   mobileBottomRow: number;
-  mobileRightColumn: number;
+  mobileRightColumn = 64;
   mobileTopRow: number;
   mobileLeftColumn = 0.0;
   maxDynamicHeight = 9000.0;
@@ -42,25 +43,34 @@ class Widget extends Appsmith {
   leftColumn = 0.0;
   rightColumn = 64.0;
   minWidth: number;
+  alignment: "start" | "center" | "end" = "start";
 
   /** Temporary properties */
-  parentId: string;
   height: number;
 
   constructor(name: string, type: WidgetType) {
     super(name);
     this.widgetName = name;
     this.type = type;
-    this.parentId = "0";
   }
 
-  setHeight(number) {
-    this.height = number;
+  setHeight(height: number) {
+    this.height = height;
     return this;
+  }
+
+  setTopBottomRow(top: number, bottom: number) {
+    this.mobileTopRow = top;
+    this.mobileBottomRow = bottom;
   }
 
   setResponsiveBehaviour(behaviour: "fill" | "hug") {
     this.responsiveBehavior = behaviour;
+    return this;
+  }
+
+  setAlignment(align: "start" | "center" | "end") {
+    this.alignment = align;
     return this;
   }
 }
