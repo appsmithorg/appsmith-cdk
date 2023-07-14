@@ -1,5 +1,6 @@
 import Page from "~/Page";
 import { Datasource } from "./Datasource";
+import fs from 'fs';
 
 export class App {
   private pages: Array<Page>;
@@ -130,6 +131,10 @@ export class App {
     return this.pages;
   }
 
+  getName(): string {
+    return this.exportedApplication.name;
+  }
+
   addPage(page: Page, isDefault: boolean) {
     const id = page.getName();
     this.exportedApplication.pages.push({ id, isDefault });
@@ -149,9 +154,18 @@ export class App {
     return this;
   }
 
-  toJson(): Object {
-    return {
-      // TODO
-    };
+  create(): void {
+    // create directory if not exists
+    if (!fs.existsSync("exports")) {
+      fs.mkdirSync("exports", { recursive: true })
+    }
+
+    fs.writeFile(
+      `exports/${this.getName()}.json`,
+      JSON.stringify(this, null, 2), function (err) {
+        if (err) {
+          return console.log(err);
+        }
+      });
   }
 }
