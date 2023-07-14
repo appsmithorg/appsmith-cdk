@@ -1,4 +1,4 @@
-import Widget, {WidgetType} from "~/Widget";
+import Widget, { WidgetType } from "~/Widget";
 
 export class Button extends Widget {
   resetFormOnClick: boolean;
@@ -12,18 +12,18 @@ export class Button extends Widget {
   version = 1.0;
   dynamicBindingPathList = [
     {
-      "key": "buttonColor"
+      key: "buttonColor",
     },
     {
-      "key": "borderRadius"
-    }
+      key: "borderRadius",
+    },
   ];
 
   buttonVariant: "PRIMARY" | "SECONDARY" | "TERTIARY" = "PRIMARY";
   placement: "START" | "BETWEEN" | "CENTER" = "CENTER";
 
   constructor(name: string) {
-    super(name, WidgetType.BUTTON)
+    super(name, WidgetType.BUTTON);
     this.setHeight(17);
     this.setResponsiveBehaviour("hug");
     this.setAlignment("center");

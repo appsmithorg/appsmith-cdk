@@ -1,6 +1,7 @@
 import { JsObject } from "~/JsObject";
 import Widget from "~/Widget";
 import { Button } from "~/widgets/Button";
+import { Input } from "./widgets/Input";
 import { App } from "./App";
 import Page from "./Page";
 import { RestAPI } from "~/datasources/RestAPI";
@@ -36,6 +37,13 @@ const button3 = new Button("CenterButton");
 button3.setText("Center").setAlignment("center");
 page.addWidget(button3);
 
+const input = new Input("Input");
+input.setPlaceholderText("Enter your name");
+input.setLabel("Name");
+input.setIsRequired(true);
+input.setLabelPosition("Left");
+page.addWidget(input);
+
 const table1 = new Table("TestTable");
 table1.setTableData('{{[ { "name": "Arpit"  }, { "name": "Hetu" }, { "name": "Nilansh" }, { "name": "Jimmy" }, { "name": "Dilip" }, { "name": "Hitesh" }, { "name": "Olawale" } ]}}', ["name"])
 page.addWidget(table1);
@@ -44,4 +52,7 @@ app.addDatasource(restAPIDatasource);
 app.addDatasource(postgresDatasource);
 app.addDatasource(mysqlDatasource);
 
-console.log(JSON.stringify(app, null, 2));
+const js = new JsObject("JsObject1", "./JsObj1.ts");
+page.addJsObject(js);
+
+app.create();
