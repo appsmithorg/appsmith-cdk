@@ -3,9 +3,9 @@ import Widget from "~/Widget";
 import { Button } from "~/widgets/Button";
 import { App } from "./App";
 import Page from "./Page";
-import { RestAPI } from "./datasources/RestAPI";
-import { Postgres } from "./datasources/Postgres";
-import { Mysql } from "./datasources/MySQL";
+import { RestAPI } from "~/datasources/RestAPI";
+import { Postgres } from "~/datasources/Postgres";
+import { Mysql } from "~/datasources/Mysql";
 // const js = new JsObject("Js");
 
 // js.setSettingFor("run").onLoad(true).confirm(true)
