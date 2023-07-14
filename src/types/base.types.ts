@@ -30,7 +30,7 @@ export type TAppsmithPage = {
   isHidden: boolean;
 };
 
-type TAppsmithActionCollection = {
+export type TAppsmithActionCollection = {
   name: string;
   pageId: string;
   pluginId: "js-plugin";

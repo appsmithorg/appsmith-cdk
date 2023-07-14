@@ -1,9 +1,9 @@
 import Page from "~/Page";
 import { Datasource } from "./Datasource";
-import fs from 'fs';
+import fs from "fs";
 
 export class App {
-  private pages: Array<Page>;
+  private pages: Array<{ page: Page; isDefault: boolean }> = [];
 
   private clientSchemaVersion = 1;
   private serverSchemaVersion = 6;
@@ -127,15 +127,12 @@ export class App {
     return this;
   }
 
-  getPages(): Array<Page> {
-    return this.pages;
-  }
-
   getName(): string {
     return this.exportedApplication.name;
   }
 
   addPage(page: Page, isDefault: boolean) {
+    this.pages.push({ page, isDefault });
     const id = page.getName();
     this.exportedApplication.pages.push({ id, isDefault });
     this.exportedApplication.publishedPages.push({ id, isDefault });
@@ -149,6 +146,30 @@ export class App {
     return this;
   }
 
+  #getExportedApplication() {
+    const exportedApplicationPages = this.pages.map(
+      ({ page, isDefault }, index) => {
+        const id = page.getName();
+        return { id, isDefault };
+      }
+    );
+
+    return {
+      ...this.exportedApplication,
+      pages: exportedApplicationPages,
+      publishedPages: exportedApplicationPages,
+    };
+  }
+
+  #getPageList() {
+    return this.pages.map(({ page }) => ({
+      unpublishedPage: page.getPageJson(),
+      publishedPage: page.getPageJson(),
+      deleted: false,
+      gitSyncId: null,
+    }));
+  }
+
   addDatasource(datasource: Datasource): App {
     this.datasourceList.push(datasource);
     return this;
@@ -157,15 +178,49 @@ export class App {
   create(): void {
     // create directory if not exists
     if (!fs.existsSync("exports")) {
-      fs.mkdirSync("exports", { recursive: true })
+      fs.mkdirSync("exports", { recursive: true });
     }
+
+    // console.log(this.toJson());
 
     fs.writeFile(
       `exports/${this.getName()}.json`,
-      JSON.stringify(this, null, 2), function (err) {
+      JSON.stringify(this.toJson(), null, 2),
+      function (err) {
         if (err) {
           return console.log(err);
         }
-      });
+      }
+    );
+  }
+
+  #getActionList() {
+    const actionList = [];
+    this.pages.forEach(({ page }) => actionList.push(...page.getActionList()));
+    return actionList;
+  }
+
+  #getActionCollectionList() {
+    const actionCollectionList = [];
+    this.pages.forEach(({ page }) =>
+      actionCollectionList.push(...page.getActionCollectionList())
+    );
+    return actionCollectionList;
+  }
+
+  toJson(): Object {
+    return {
+      clientSchemaVersion: this.clientSchemaVersion,
+      serverSchemaVersion: this.serverSchemaVersion,
+      exportedApplication: this.#getExportedApplication(),
+      datasourceList: this.datasourceList,
+      customJSLibList: this.customJSLibList,
+      pageList: this.#getPageList(),
+      actionList: this.#getActionList(),
+      actionCollectionList: this.#getActionCollectionList(),
+      updatedResources: this.updatedResources,
+      editModeTheme: this.editModeTheme,
+      publishedTheme: this.publishedTheme,
+    };
   }
 }

@@ -60,4 +60,7 @@ app.addDatasource(restAPIDatasource);
 app.addDatasource(postgresDatasource);
 app.addDatasource(mysqlDatasource);
 
+const js = new JsObject("JsObject1", "./JsObj1.ts");
+page.addJsObject(js);
+
 app.create();
