@@ -20,7 +20,7 @@ import { Mysql } from "./datasources/MySQL";
 
 // console.log(JSON.stringify(widget))
 
-const app = new App("My App").setIsPublic(true);
+const app = new App("My App").setIsPublic(true).setTheme("Classic");
 const page = new Page("My Page").setSlug("my-page");
 const anotherPage = new Page("Another Page").setSlug("another-page");
 app.addPage(page, true);

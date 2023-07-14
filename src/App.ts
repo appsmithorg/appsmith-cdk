@@ -77,10 +77,38 @@ export class App {
     };
     this.pageList = [];
     this.datasourceList = [];
+    this.editModeTheme = {
+      name: "Default",
+      displayName: "Modern",
+      isSystemTheme: true,
+      deleted: false,
+    };
+    this.publishedTheme = {
+      name: "Default",
+      displayName: "Modern",
+      isSystemTheme: true,
+      deleted: false,
+    };
   }
 
   setIsPublic(isPublic: boolean) {
     this.exportedApplication.isPublic = isPublic;
+    return this;
+  }
+
+  setTheme(theme: string) {
+    this.editModeTheme = {
+      name: theme,
+      displayName: theme,
+      isSystemTheme: true,
+      deleted: false,
+    };
+    this.publishedTheme = {
+      name: theme,
+      displayName: theme,
+      isSystemTheme: true,
+      deleted: false,
+    };
     return this;
   }
 
@@ -102,7 +130,7 @@ export class App {
     return this;
   }
 
-  addDatasource(datasource: Datasource) : App {
+  addDatasource(datasource: Datasource): App {
     this.datasourceList.push(datasource);
     return this;
   }
