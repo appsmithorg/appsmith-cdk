@@ -49,7 +49,7 @@ class Page {
       parentColumnSpace: 1.0,
       dynamicBindingPathList: [],
       leftColumn: 0.0,
-      children: []
+      children: [],
     };
   }
 
@@ -62,8 +62,8 @@ class Page {
     return this.name;
   }
 
-  addWidget(widget: Object): void{
-      this.layouts[0].dsl.children.push(widget);
+  addWidget(widget: Object): void {
+    this.layouts[0].dsl.children.push(widget);
   }
 
   // addCustomJSFunc(customJSFunc: JsObject): void{

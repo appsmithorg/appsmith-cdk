@@ -27,13 +27,17 @@ app.addPage(page, true);
 app.addPage(anotherPage, false);
 
 const restAPIDatasource = new RestAPI("myapi");
-console.log({ restAPIDatasource });
+// console.log({ restAPIDatasource });
 
 const postgresDatasource = new Postgres("mypgdb");
-console.log({ postgresDatasource });
+// console.log({ postgresDatasource });
 
 const mysqlDatasource = new Mysql("mysqldb");
-console.log({ mysqlDatasource });
+// console.log({ mysqlDatasource });
+
+const button1 = new Button("Yo Button");
+button1.setText("Yo yo text");
+page.addWidget(button1);
 
 app.addDatasource(restAPIDatasource);
 app.addDatasource(postgresDatasource);

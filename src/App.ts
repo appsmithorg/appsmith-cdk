@@ -77,6 +77,8 @@ export class App {
     };
     this.pageList = [];
     this.datasourceList = [];
+    this.actionList = [];
+    this.actionCollectionList = [];
     this.editModeTheme = {
       name: "Default",
       displayName: "Modern",
