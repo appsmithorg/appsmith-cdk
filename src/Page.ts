@@ -1,4 +1,5 @@
 import { JsObject } from "~/JsObject";
+import Widget from "~/Widget";
 
 class Page {
   // private widgets: Array<Object>;
@@ -25,8 +26,6 @@ class Page {
   private isHidden = false;
 
   constructor(name: string) {
-    // this.widgets = new Array<Object>;
-    // this.customJSFunctions = new Array<JsObject>;
     this.name = name;
     this.slug = name;
     this.layouts[0].dsl = {
@@ -41,15 +40,19 @@ class Page {
       containerStyle: "none",
       snapRows: 124.0,
       parentRowSpace: 1.0,
+      positioning: "vertical",
+      responsiveBehavior: "fill",
       type: "CANVAS_WIDGET",
       canExtend: true,
       version: 80.0,
       minHeight: 1292.0,
       dynamicTriggerPathList: [],
+      flexLayers: [],
       parentColumnSpace: 1.0,
       dynamicBindingPathList: [],
       leftColumn: 0.0,
-      children: [],
+      useAutoLayout: true,
+      children: []
     };
   }
 
@@ -62,13 +65,26 @@ class Page {
     return this.name;
   }
 
-  addWidget(widget: Object): void {
+  addWidget(widget: Widget): void {
+    this._updatePageFlexLayers(widget.widgetId, widget.alignment);
+    this._updateNewWidgetPosition(widget);
     this.layouts[0].dsl.children.push(widget);
   }
 
-  // addCustomJSFunc(customJSFunc: JsObject): void{
-  //     this.customJSFunctions.push(customJSFunc);
-  // }
+  private _updateNewWidgetPosition(widget) {
+    const { children } = this.layouts[0].dsl;
+    if(children.length === 0) {
+      widget.setTopBottomRow(0, widget.height);
+    } else {
+      const lastWidget = children.slice(-1);
+      widget.setTopBottomRow(lastWidget.mobileBottomRow, lastWidget.mobileBottomRow + widget.height);
+    }
+  }
+
+  private _updatePageFlexLayers(widgetId: string, alignment: "start" | "center" | "end") {
+    const { flexLayers } = this.layouts[0].dsl;
+    flexLayers.push({children: [{ id: widgetId, "align": alignment }]});
+  }
 }
 
 export default Page;

@@ -21,12 +21,12 @@ export class Button extends Widget {
 
   buttonVariant: "PRIMARY" | "SECONDARY" | "TERTIARY" = "PRIMARY";
   placement: "START" | "BETWEEN" | "CENTER" = "CENTER";
-  alignment = "center";
 
   constructor(name: string) {
     super(name, WidgetType.BUTTON)
     this.setHeight(17);
     this.setResponsiveBehaviour("hug");
+    this.setAlignment("center");
   }
 
   isDisabled: string | boolean;
