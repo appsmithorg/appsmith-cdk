@@ -7,6 +7,7 @@ import Page from "./Page";
 import { RestAPI } from "~/datasources/RestAPI";
 import { Postgres } from "~/datasources/Postgres";
 import { Mysql } from "~/datasources/Mysql";
+import DbAction from "./actions/db-action";
 
 // const js = new JsObject("Js");
 
@@ -61,6 +62,7 @@ app.addDatasource(postgresDatasource);
 app.addDatasource(mysqlDatasource);
 
 const js = new JsObject("JsObject1", "./JsObj1.ts");
+const dbAction = new DbAction("DbAct1", mysqlDatasource);
 page.addJsObject(js);
 
 app.create();

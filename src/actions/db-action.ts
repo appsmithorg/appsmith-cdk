@@ -1,35 +1,23 @@
 import { Action } from "~/Action";
 import { Datasource } from "~/Datasource";
+import {
+    TAppsmithSQLAction,
+    TAppsmithSQLDatasource,
+} from "~/types/datasources.types";
 
 class DbAction extends Action {
-    unpublishedAction: {
-        name: string;
-        datasource: Datasource;
-        pageId: string;
-        actionConfiguration: {
-            timeoutInMillisecond: number;
-            paginationType: string;
-            encodeParamsToggle: string;
-            body: string;
-        };
-        executeOnLoad: boolean;
-        isValid: boolean;
-        messages: Array<string>;
-        userSetOnLoad: boolean;
-        confirmBeforeExecute: boolean;
-        policies: Array<string>;
-        userPermissions: Array<string>;
-    };
-
+    pluginId: "postgres-plugin" | "mysql-plugin";
+    pluginType: string;
+    unpublishedAction: TAppsmithSQLAction;
+    publishedAction: TAppsmithSQLAction;
     id: string;
-    deleted: string;
+    deleted: boolean;
     gitSyncId: string;
 
-    constructor(name: string, datasource: Datasource, pageId: string) {
+    constructor(name: string, datasource: Datasource) {
         super(name);
         this.unpublishedAction.name = name;
         this.unpublishedAction.datasource = datasource;
-        this.unpublishedAction.pageId = pageId;
         this.gitSyncId = "648534525262b67a9831198d_64b0e21337e38813fa9699e6";
         this.setPluginId(datasource.pluginId);
         this.setPluginType("DB");
