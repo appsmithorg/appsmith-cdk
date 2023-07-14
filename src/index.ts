@@ -6,6 +6,7 @@ import Page from "./Page";
 import { RestAPI } from "~/datasources/RestAPI";
 import { Postgres } from "~/datasources/Postgres";
 import { Mysql } from "~/datasources/Mysql";
+
 // const js = new JsObject("Js");
 
 // js.setSettingFor("run").onLoad(true).confirm(true)
@@ -51,4 +52,4 @@ app.addDatasource(restAPIDatasource);
 app.addDatasource(postgresDatasource);
 app.addDatasource(mysqlDatasource);
 
-console.log(JSON.stringify(app, null, 2));
+app.create();
