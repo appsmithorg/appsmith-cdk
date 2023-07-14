@@ -56,7 +56,6 @@ input.setIsRequired(true);
 input.setLabelPosition("Left");
 page.addWidget(input);
 
-
 app.addDatasource(restAPIDatasource);
 app.addDatasource(postgresDatasource);
 app.addDatasource(mysqlDatasource);
