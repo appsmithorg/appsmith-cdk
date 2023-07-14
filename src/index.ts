@@ -2,26 +2,14 @@ import { JsObject } from "~/JsObject";
 import Widget from "~/Widget";
 import { Button } from "~/widgets/Button";
 import { Input } from "./widgets/Input";
+import { Text } from "./widgets/Text";
 import { App } from "./App";
 import Page from "./Page";
 import { RestAPI } from "~/datasources/RestAPI";
 import { Postgres } from "~/datasources/Postgres";
 import { Mysql } from "~/datasources/Mysql";
 import DbAction from "./actions/db-action";
-
-// const js = new JsObject("Js");
-
-// js.setSettingFor("run").onLoad(true).confirm(true)
-
-// console.log(js);
-
-// const widget = new Button();
-
-// widget._onClick = "Run Api 1";
-// widget.type = "ButtonWidget"
-// widget.visible = true;
-
-// console.log(JSON.stringify(widget))
+import Table from "~/widgets/Table";
 
 const app = new App("My App").setIsPublic(true).setTheme("Classic");
 const page = new Page("My Page").setSlug("my-page");
@@ -56,6 +44,18 @@ input.setLabel("Name");
 input.setIsRequired(true);
 input.setLabelPosition("Left");
 page.addWidget(input);
+
+const text = new Text("Text");
+text.setText("Hello World");
+text.setFontSize("1.25rem");
+page.addWidget(text);
+
+const table1 = new Table("TestTable");
+table1.setTableData(
+  '{{[ { "name": "Arpit"  }, { "name": "Hetu" }, { "name": "Nilansh" }, { "name": "Jimmy" }, { "name": "Dilip" }, { "name": "Hitesh" }, { "name": "Olawale" } ]}}',
+  ["name"]
+);
+page.addWidget(table1);
 
 app.addDatasource(restAPIDatasource);
 app.addDatasource(postgresDatasource);
