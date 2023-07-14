@@ -77,6 +77,17 @@ class Page {
     this.layouts[0].dsl.children.push(widget);
   }
 
+  addWidgetRow(widgets: Widget[]) {
+    const { flexLayers } = this.layouts[0].dsl;
+    flexLayers.push({ children: [] });
+    const children = flexLayers.children.slice(-1);
+    widgets.forEach(widget => {
+      // Adding flex layers
+      children.push({ id: widget.widgetId, align: widget.alignment })
+      this._updateNewWidgetPosition(widget);
+    })
+  }
+
   private _updateNewWidgetPosition(widget) {
     const { children } = this.layouts[0].dsl;
     if (children.length === 0) {
