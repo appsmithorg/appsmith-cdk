@@ -1,4 +1,4 @@
-import Action from "~/Action";
+import { Action } from "~/Action";
 import { Datasource } from "~/Datasource";
 
 class DbAction extends Action {
