@@ -29,6 +29,28 @@ class Page {
     // this.customJSFunctions = new Array<JsObject>;
     this.name = name;
     this.slug = name;
+    this.layouts[0].dsl = {
+      widgetName: "MainContainer",
+      backgroundColor: "none",
+      rightColumn: 4896.0,
+      snapColumns: 64.0,
+      detachFromLayout: true,
+      widgetId: "0",
+      topRow: 0.0,
+      bottomRow: 380.0,
+      containerStyle: "none",
+      snapRows: 124.0,
+      parentRowSpace: 1.0,
+      type: "CANVAS_WIDGET",
+      canExtend: true,
+      version: 80.0,
+      minHeight: 1292.0,
+      dynamicTriggerPathList: [],
+      parentColumnSpace: 1.0,
+      dynamicBindingPathList: [],
+      leftColumn: 0.0,
+      children: []
+    };
   }
 
   setSlug(slug: string) {
@@ -40,9 +62,9 @@ class Page {
     return this.name;
   }
 
-  // addWidget(widget: Object): void{
-  //     this.widgets.push(widget);
-  // }
+  addWidget(widget: Object): void{
+      this.layouts[0].dsl.children.push(widget);
+  }
 
   // addCustomJSFunc(customJSFunc: JsObject): void{
   //     this.customJSFunctions.push(customJSFunc);
