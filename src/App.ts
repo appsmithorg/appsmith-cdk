@@ -20,6 +20,16 @@ export class App {
     slug: string;
     unpublishedAppLayout: { type: "DESKTOP" };
     publishedAppLayout: { type: "DESKTOP" };
+    unpublishedApplicationDetail: {
+      appPositioning: {
+        type: string;
+      };
+    };
+    publishedApplicationDetail: {
+      appPositioning: {
+        type: string;
+      };
+    };
     unpublishedCustomJSLibs: [];
     publishedCustomJSLibs: [];
     evaluationVersion: number;
@@ -67,6 +77,8 @@ export class App {
       slug: "",
       unpublishedAppLayout: { type: "DESKTOP" },
       publishedAppLayout: { type: "DESKTOP" },
+      unpublishedApplicationDetail: this.unpublishedApplicationDetail,
+      publishedApplicationDetail: this.publishedApplicationDetail,
       unpublishedCustomJSLibs: [],
       publishedCustomJSLibs: [],
       evaluationVersion: 2,
