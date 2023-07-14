@@ -3,7 +3,6 @@ import Widget from "~/Widget";
 import { Button } from "~/widgets/Button";
 import { App } from "./App";
 import Page from "./Page";
-import { TAppsmithApplication } from "./types/base.types";
 import { RestAPI } from "./datasources/RestAPI";
 import { Postgres } from "./datasources/Postgres";
 import { Mysql } from "./datasources/MySQL";
@@ -27,14 +26,17 @@ const anotherPage = new Page("Another Page").setSlug("another-page");
 app.addPage(page, true);
 app.addPage(anotherPage, false);
 
-console.log(JSON.stringify(app, null, 2));
-
 const restAPIDatasource = new RestAPI("myapi");
-console.log({restAPIDatasource});
-
+console.log({ restAPIDatasource });
 
 const postgresDatasource = new Postgres("mypgdb");
-console.log({postgresDatasource});
+console.log({ postgresDatasource });
 
 const mysqlDatasource = new Mysql("mysqldb");
-console.log({mysqlDatasource});
+console.log({ mysqlDatasource });
+
+app.addDatasource(restAPIDatasource);
+app.addDatasource(postgresDatasource);
+app.addDatasource(mysqlDatasource);
+
+console.log(JSON.stringify(app, null, 2));
