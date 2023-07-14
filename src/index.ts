@@ -6,19 +6,8 @@ import Page from "./Page";
 import { RestAPI } from "~/datasources/RestAPI";
 import { Postgres } from "~/datasources/Postgres";
 import { Mysql } from "~/datasources/Mysql";
-// const js = new JsObject("Js");
+import Table from "~/widgets/Table";
 
-// js.setSettingFor("run").onLoad(true).confirm(true)
-
-// console.log(js);
-
-// const widget = new Button();
-
-// widget._onClick = "Run Api 1";
-// widget.type = "ButtonWidget"
-// widget.visible = true;
-
-// console.log(JSON.stringify(widget))
 
 const app = new App("My App").setIsPublic(true).setTheme("Classic");
 const page = new Page("My Page").setSlug("my-page");
@@ -46,6 +35,10 @@ page.addWidget(button2);
 const button3 = new Button("CenterButton");
 button3.setText("Center").setAlignment("center");
 page.addWidget(button3);
+
+const table1 = new Table("TestTable");
+table1.setTableData('{{[ { "name": "Arpit"  }, { "name": "Hetu" }, { "name": "Nilansh" }, { "name": "Jimmy" }, { "name": "Dilip" }, { "name": "Hitesh" }, { "name": "Olawale" } ]}}', ["name"])
+page.addWidget(table1);
 
 app.addDatasource(restAPIDatasource);
 app.addDatasource(postgresDatasource);

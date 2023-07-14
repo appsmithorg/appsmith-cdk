@@ -76,7 +76,7 @@ class Page {
     if(children.length === 0) {
       widget.setTopBottomRow(0, widget.height);
     } else {
-      const lastWidget = children.slice(-1);
+      const lastWidget = children.slice(-1)[0];
       widget.setTopBottomRow(lastWidget.mobileBottomRow, lastWidget.mobileBottomRow + widget.height);
     }
   }
