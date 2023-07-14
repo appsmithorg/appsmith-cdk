@@ -35,7 +35,7 @@ export class Input extends Widget {
   constructor(name: string) {
     super(name, WidgetType.INPUT)
     this.setHeight(17);
-    this.setResponsiveBehaviour("hug");
+    this.setResponsiveBehaviour("fill");
     this.version = 2.0;
     this.iconSVG = "https://appcdn.appsmith.com/static/media/icon.d0ce957b6c4640f8a7418ce846ee200e.svg";
     this.placeholderText = "";
