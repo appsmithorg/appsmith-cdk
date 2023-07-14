@@ -182,18 +182,6 @@ export class App {
     if (!fs.existsSync("exports")) {
       fs.mkdirSync("exports", { recursive: true });
     }
-
-    // console.log(this.toJson());
-
-    fs.writeFile(
-      `exports/${this.getName()}.json`,
-      JSON.stringify(this.toJson(), null, 2),
-      function (err) {
-        if (err) {
-          return console.log(err);
-        }
-      }
-    );
   }
 
   #getActionList(): TAppsmithActionPlugin[] {

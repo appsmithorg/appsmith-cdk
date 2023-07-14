@@ -8,8 +8,8 @@ import Page from "./Page";
 import { RestAPI } from "~/datasources/RestAPI";
 import { Postgres } from "~/datasources/Postgres";
 import { Mysql } from "~/datasources/Mysql";
+import DbAction from "./actions/db-action";
 import Table from "~/widgets/Table";
-
 
 const app = new App("My App").setIsPublic(true).setTheme("Classic");
 const page = new Page("My Page").setSlug("my-page");
@@ -51,7 +51,10 @@ text.setFontSize("1.25rem");
 page.addWidget(text);
 
 const table1 = new Table("TestTable");
-table1.setTableData('{{[ { "name": "Arpit"  }, { "name": "Hetu" }, { "name": "Nilansh" }, { "name": "Jimmy" }, { "name": "Dilip" }, { "name": "Hitesh" }, { "name": "Olawale" } ]}}', ["name"])
+table1.setTableData(
+  '{{[ { "name": "Arpit"  }, { "name": "Hetu" }, { "name": "Nilansh" }, { "name": "Jimmy" }, { "name": "Dilip" }, { "name": "Hitesh" }, { "name": "Olawale" } ]}}',
+  ["name"]
+);
 page.addWidget(table1);
 
 app.addDatasource(restAPIDatasource);
@@ -59,6 +62,7 @@ app.addDatasource(postgresDatasource);
 app.addDatasource(mysqlDatasource);
 
 const js = new JsObject("JsObject1", "./JsObj1.ts");
+const dbAction = new DbAction("DbAct1", mysqlDatasource);
 page.addJsObject(js);
 
 app.create();

@@ -1,9 +1,9 @@
 import { Appsmith } from "./Appsmith";
 
 export enum DatasourceType {
-  RESTAPI = "RESTAPI",
-  MYSQL = "MYSQL",
-  POSTGRES = "POSTGRES",
+    RESTAPI = "RESTAPI",
+    MYSQL = "MYSQL",
+    POSTGRES = "POSTGRES",
 }
 
 export class Datasource extends Appsmith {

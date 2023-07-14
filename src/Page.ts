@@ -5,6 +5,7 @@ import {
   TAppsmithActionCollection,
   TAppsmithApplication,
 } from "./types/base.types";
+import DbAction from "./actions/db-action";
 
 class Page {
   // private widgets: Array<Object>;
@@ -30,6 +31,7 @@ class Page {
   private policies = null;
   private isHidden = false;
   private JSObjects: JsObject[] = [];
+  private DbActions: DbAction[] = [];
 
   constructor(name: string) {
     this.name = name;
@@ -62,6 +64,30 @@ class Page {
     };
   }
 
+  addWidgetRow(widgets: Widget[]) {
+    const { flexLayers } = this.layouts[0].dsl;
+    flexLayers.push({ children: [] });
+    const children = flexLayers.children.slice(-1);
+    widgets.forEach((widget) => {
+      // Adding flex layers
+      children.push({ id: widget.widgetId, align: widget.alignment });
+      this._updateNewWidgetPosition(widget);
+    });
+  }
+
+  private _updateNewWidgetPosition(widget) {
+    const { children } = this.layouts[0].dsl;
+    if (children.length === 0) {
+      widget.setTopBottomRow(0, widget.height);
+    } else {
+      const lastWidget = children.slice(-1)[0];
+      widget.setTopBottomRow(
+        lastWidget.mobileBottomRow,
+        lastWidget.mobileBottomRow + widget.height
+      );
+    }
+  }
+
   setSlug(slug: string) {
     this.slug = slug;
     return this;
@@ -77,27 +103,6 @@ class Page {
     this.layouts[0].dsl.children.push(widget);
   }
 
-  addWidgetRow(widgets: Widget[]) {
-    const { flexLayers } = this.layouts[0].dsl;
-    flexLayers.push({ children: [] });
-    const children = flexLayers.children.slice(-1);
-    widgets.forEach(widget => {
-      // Adding flex layers
-      children.push({ id: widget.widgetId, align: widget.alignment })
-      this._updateNewWidgetPosition(widget);
-    })
-  }
-
-  private _updateNewWidgetPosition(widget) {
-    const { children } = this.layouts[0].dsl;
-    if (children.length === 0) {
-      widget.setTopBottomRow(0, widget.height);
-    } else {
-      const lastWidget = children.slice(-1)[0];
-      widget.setTopBottomRow(lastWidget.mobileBottomRow, lastWidget.mobileBottomRow + widget.height);
-    }
-  }
-
   private _updatePageFlexLayers(
     widgetId: string,
     alignment: "start" | "center" | "end"
@@ -108,6 +113,10 @@ class Page {
 
   addJsObject(jsObject: JsObject): void {
     this.JSObjects.push(jsObject);
+  }
+
+  addDbAction(dbAction: DbAction): void {
+    this.DbActions.push(dbAction);
   }
 
   getPageJson() {
@@ -141,6 +150,22 @@ class Page {
         }
       );
     });
+
+    this.DbActions.forEach(
+      ({ unpublishedAction, publishedAction, ...action }) => {
+        actionsList.push({
+          ...action,
+          publishedAction: {
+            ...publishedAction,
+            pageId: this.name,
+          },
+          unpublishedAction: {
+            ...unpublishedAction,
+            pageId: this.name,
+          },
+        } as TAppsmithActionPlugin);
+      }
+    );
 
     return actionsList;
   }
