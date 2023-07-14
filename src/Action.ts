@@ -1,6 +1,6 @@
 import { Appsmith } from "./Appsmith";
 
-class Action extends Appsmith {
+export class Action extends Appsmith {
     pluginType: string;
     pluginId: string;
 
@@ -16,5 +16,3 @@ class Action extends Appsmith {
         this.pluginId = pluginId;
     }
 }
-
-export default Action;
