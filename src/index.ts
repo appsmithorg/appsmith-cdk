@@ -1,64 +1,27 @@
-import { JsObject } from "~/JsObject";
-import Widget from "~/widgets/Widget";
-import { Button } from "~/widgets/Button";
-import { Input } from "./widgets/Input";
-import { Text } from "./widgets/Text";
 import { App } from "./App";
 import Page from "./Page";
-import { RestAPI } from "~/datasources/RestAPI";
-import { Postgres } from "~/datasources/Postgres";
-import { Mysql } from "~/datasources/Mysql";
-import Table from "~/widgets/Table";
-
+import { PostgresDatasource } from "~/datasouce/postgres";
 
 const app = new App("My App").setIsPublic(true).setTheme("Classic");
 const page = new Page("My Page").setSlug("my-page");
-const anotherPage = new Page("Another Page").setSlug("another-page");
 app.addPage(page, true);
-app.addPage(anotherPage, false);
 
-const restAPIDatasource = new RestAPI("myapi");
-// console.log({ restAPIDatasource });
+const postgresDatasource = new PostgresDatasource("Mock_DB_V2");
 
-const postgresDatasource = new Postgres("mypgdb");
-// console.log({ postgresDatasource });
+const posrgresQuery = postgresDatasource
+  .createQuery("getOrders")
+  .setBody(
+    `SELECT po.*, c.name, c.phone, c.email, l.label, l.address1, COUNT(pop.product_id) as total_product_count
+  FROM purchase_order po
+  JOIN company c ON po.company_id = c.id
+  JOIN location l ON po.location_id = l.id
+  LEFT JOIN purchase_order_product pop ON po.id = pop.purchase_order_id
+  GROUP BY po.id, po.updated, po.company_id, c.name, c.phone, c.email, l.label, l.address1;
+  `
+  )
+  .setExecuteOnLoad(true)
+  .setTimeout(10000);
 
-const mysqlDatasource = new Mysql("mysqldb");
-// console.log({ mysqlDatasource });
-
-const button1 = new Button("LeftButton");
-button1.setText("Left").setAlignment("start");
-page.addWidget(button1);
-
-const button2 = new Button("RightButton");
-button2.setText("Right").setAlignment("end");
-page.addWidget(button2);
-
-const button3 = new Button("CenterButton");
-button3.setText("Center").setAlignment("center");
-page.addWidget(button3);
-
-const input = new Input("Input");
-input.setPlaceholderText("Enter your name");
-input.setLabel("Name");
-input.setIsRequired(true);
-input.setLabelPosition("Left");
-page.addWidget(input);
-
-const text = new Text("Text");
-text.setText("Hello World");
-text.setFontSize("1.25rem");
-page.addWidget(text);
-
-const table1 = new Table("TestTable");
-table1.setTableData('{{[ { "name": "Arpit"  }, { "name": "Hetu" }, { "name": "Nilansh" }, { "name": "Jimmy" }, { "name": "Dilip" }, { "name": "Hitesh" }, { "name": "Olawale" } ]}}', ["name"])
-page.addWidget(table1);
-
-app.addDatasource(restAPIDatasource);
-app.addDatasource(postgresDatasource);
-app.addDatasource(mysqlDatasource);
-
-const js = new JsObject("JsObject1", "./JsObj1.ts");
-page.addJsObject(js);
+page.addQuery(posrgresQuery);
 
 app.create();

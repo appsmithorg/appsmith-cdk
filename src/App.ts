@@ -172,10 +172,10 @@ export class App {
     }));
   }
 
-  addDatasource(datasource: Datasource): App {
-    this.datasourceList.push(datasource);
-    return this;
-  }
+  // addDatasource(datasource: Datasource): App {
+  //   this.datasourceList.push(datasource);
+  //   return this;
+  // }
 
   create(): void {
     // create directory if not exists
@@ -240,6 +240,19 @@ export class App {
     };
   }
 
+  #getDatasourceList() {
+    const actionList = this.#getActionList();
+    const datasources = [];
+
+    actionList.forEach(({ pluginType, publishedAction: { datasource } }) => {
+      if (pluginType === "DB") {
+        datasources.push(datasource);
+      }
+    });
+
+    return datasources;
+  }
+
   toJson(): Object {
     const actionList = this.#getActionList();
 
@@ -247,7 +260,7 @@ export class App {
       clientSchemaVersion: this.clientSchemaVersion,
       serverSchemaVersion: this.serverSchemaVersion,
       exportedApplication: this.#getExportedApplication(),
-      datasourceList: this.datasourceList,
+      datasourceList: this.#getDatasourceList(),
       customJSLibList: this.customJSLibList,
       pageList: this.#getPageList(),
       actionList,

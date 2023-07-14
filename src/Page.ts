@@ -1,10 +1,14 @@
 import { JsObject } from "~/JsObject";
 import Widget from "~/widgets/Widget";
-import { TAppsmithActionPlugin } from "./types/datasources.types";
+import {
+  TAppsmithActionPlugin,
+  TAppsmithSQLPlugin,
+} from "./types/datasources.types";
 import {
   TAppsmithActionCollection,
   TAppsmithApplication,
 } from "./types/base.types";
+import { PostgresQuery } from "./datasouce/postgres";
 
 class Page {
   // private widgets: Array<Object>;
@@ -30,6 +34,7 @@ class Page {
   private policies = null;
   private isHidden = false;
   private JSObjects: JsObject[] = [];
+  private dbQueries: PostgresQuery[] = [];
 
   constructor(name: string) {
     this.name = name;
@@ -81,11 +86,11 @@ class Page {
     const { flexLayers } = this.layouts[0].dsl;
     flexLayers.push({ children: [] });
     const children = flexLayers.children.slice(-1);
-    widgets.forEach(widget => {
+    widgets.forEach((widget) => {
       // Adding flex layers
-      children.push({ id: widget.widgetId, align: widget.alignment })
+      children.push({ id: widget.widgetId, align: widget.alignment });
       this._updateNewWidgetPosition(widget);
-    })
+    });
   }
 
   private _updateNewWidgetPosition(widget) {
@@ -94,7 +99,10 @@ class Page {
       widget.setTopBottomRow(0, widget.height);
     } else {
       const lastWidget = children.slice(-1)[0];
-      widget.setTopBottomRow(lastWidget.mobileBottomRow, lastWidget.mobileBottomRow + widget.height);
+      widget.setTopBottomRow(
+        lastWidget.mobileBottomRow,
+        lastWidget.mobileBottomRow + widget.height
+      );
     }
   }
 
@@ -108,6 +116,10 @@ class Page {
 
   addJsObject(jsObject: JsObject): void {
     this.JSObjects.push(jsObject);
+  }
+
+  addQuery(query: PostgresQuery): void {
+    this.dbQueries.push(query);
   }
 
   getPageJson() {
@@ -140,6 +152,24 @@ class Page {
           } as TAppsmithActionPlugin);
         }
       );
+    });
+
+    this.dbQueries.forEach((dbQuery) => {
+      const { unpublishedAction, publishedAction, id, ...action } =
+        dbQuery.toJson();
+
+      actionsList.push({
+        ...action,
+        id: `${this.name}_${id}`,
+        publishedAction: {
+          ...publishedAction,
+          pageId: this.name,
+        },
+        unpublishedAction: {
+          ...unpublishedAction,
+          pageId: this.name,
+        },
+      } as TAppsmithSQLPlugin);
     });
 
     return actionsList;
