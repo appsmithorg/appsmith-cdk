@@ -21,7 +21,7 @@
   "dependencies": {
     "@babel/generator": "^7.22.9",
     "@babel/parser": "^7.22.7",
-    "@babel/traverse": "^7.22.8",
+    "@babel/traverse": "^7.23.2",
     "@types/nanoid": "^3.0.0",
     "lodash": "^4.17.21",
     "nanoid": "^2.0.4"
